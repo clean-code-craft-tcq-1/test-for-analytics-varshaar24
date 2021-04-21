@@ -2,8 +2,6 @@
 
 Design tests for Analytics functionality on a Battery Monitoring System.
 
-Fill the parts marked '_enter' in the **Tasks** section below.
-
 ## Analysis-functionality to be tested
 
 This section lists the Analysis for which _tests_ must be written.
@@ -27,8 +25,11 @@ Notification must be sent when a new report is available.
 List the dependencies of the Analysis-functionality.
 
 1. Access to the Server containing the telemetrics in a csv file
-1. _enter dependency
-1. _enter dependency
+2. PDF report generator which converts telemetrics in csv to pdf format.
+3. List of receipients to send email notification.
+4. Breach limit information
+5. Record trend measurement limit.
+6. Real time clock measurement.
 
 (add more if needed)
 
@@ -37,13 +38,13 @@ List the dependencies of the Analysis-functionality.
 What is included in the software unit-test? What is not? Fill this table.
 
 | Item                      | Included?     | Reasoning / Assumption
-|---------------------------|---------------|---
+|---------------------------|---------------|------------------------------------------------------
 Battery Data-accuracy       | No            | We do not test the accuracy of data
 Computation of maximum      | Yes           | This is part of the software being developed
-Off-the-shelf PDF converter | _enter Yes/No | _enter reasoning
-Counting the breaches       | _enter Yes/No | _enter reasoning
-Detecting trends            | _enter Yes/No | _enter reasoning
-Notification utility        | _enter Yes/No | _enter reasoning
+Off-the-shelf PDF converter | YEs           | CSV has been succesfully converted to pdf
+Counting the breaches       | YES           | Track everytime breach occurs using a global counter
+Detecting trends            | YES           | Time stamp information for detected trend
+Notification utility        | YES           | Email notification is triggered when breach occurs.
 
 ### List the Test Cases
 
@@ -52,9 +53,10 @@ Write tests in the form of `<expected output or action>` from `<input>` / when `
 Add to these tests:
 
 1. Write minimum and maximum to the PDF from a csv containing positive and negative readings
-1. Write "Invalid input" to the PDF when the csv doesn't contain expected data
-1. _enter a test
-1. _enter a test
+2. Write "Invalid input" to the PDF when the csv doesn't contain expected data
+3. Test to track the breaches.
+4. Test for email notification for all recipients only when breach occurs.
+5. Time stamp added is in sync with system time.
 
 (add more)
 
@@ -68,8 +70,8 @@ Enter one part that's real and another part that's faked/mocked.
 |--------------------------|--------------|-----------------------------|---
 Read input from server     | csv file     | internal data-structure     | Fake the server store
 Validate input             | csv data     | valid / invalid             | None - it's a pure function
-Notify report availability | _enter input | _enter output               | _enter fake or mock
-Report inaccessible server | _enter input | _enter output               | _enter fake or mock
-Find minimum and maximum   | _enter input | _enter output               | _enter fake or mock
-Detect trend               | _enter input | _enter output               | _enter fake or mock
-Write to PDF               | _enter input | _enter output               | _enter fake or mock
+Notify report availability | PDF file     | Email alert                 | Fake the sending of emails
+Report inaccessible server |Access to server| email alert               | Fake the sending of emails
+Find minimum and maximum   | csv file       | min and max values        |  None - it's a pure function
+Detect trend               | time limit to detect trend | time stamp for trend detected| None - it's a pure function
+Write to PDF               | csv file    | pdf file                    | csv to pdf convertor
